@@ -64,7 +64,7 @@ export default function Sidebar() {
   useEffect(() => {
     const fetchUserLevel = async () => {
       try {
-        const token = localStorage.getItem(config.tokenKey);
+        const token = localStorage.getItem(config.tokenKey!);
 
         if (!token) {
           setUserLevel("");
