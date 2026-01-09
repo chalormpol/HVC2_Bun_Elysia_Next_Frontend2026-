@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
 
 const config = {
-  apiUrl: "http://localhost:3001",
-  tokenKey: "bun_token_key",
+  apiUrl: process.env.NEXT_PUBLIC_API_URL,
+  tokenKey: process.env.NEXT_PUBLIC_TOKEN_KEY,
   confirmAllowDialog: () => {
     return Swal.fire({
       icon: "question",
