@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 
 const config = {
-  apiUrl: process.env.NEXT_PUBLIC_API_URL,
+  apiUrl: (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, ""),
   tokenKey: process.env.NEXT_PUBLIC_TOKEN_KEY,
   confirmAllowDialog: () => {
     return Swal.fire({
