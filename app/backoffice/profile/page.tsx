@@ -16,7 +16,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem(config.tokenKey);
+        const token = localStorage.getItem(config.tokenKey!);
         if (!token) return;
 
         const levelRes = await axios.get(`${config.apiUrl}/api/users/level`, {

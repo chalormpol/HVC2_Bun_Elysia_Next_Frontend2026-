@@ -65,7 +65,7 @@ export default function TopNav() {
   useEffect(() => {
     const fetchUserLevel = async () => {
       try {
-        const token = localStorage.getItem(config.tokenKey);
+        const token = localStorage.getItem(config.tokenKey!);
 
         if (!token) {
           setUserLevel("");
@@ -103,7 +103,7 @@ export default function TopNav() {
     });
 
     if (button.isConfirmed) {
-      localStorage.removeItem(config.tokenKey);
+      localStorage.removeItem(config.tokenKey!);
       localStorage.removeItem("bun_service_id");
       // localStorage.removeItem("bun_service_email");
       // localStorage.removeItem("bun_service_fname");

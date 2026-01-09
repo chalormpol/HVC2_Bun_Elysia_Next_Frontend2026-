@@ -83,7 +83,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const loadToken = () => {
-      const t = localStorage.getItem(config.tokenKey);
+      const t = localStorage.getItem(config.tokenKey!);
       setToken(t);
       setIsTokenLoaded(true);
     };
@@ -103,7 +103,7 @@ export default function HomePage() {
     });
 
     if (button.isConfirmed) {
-      localStorage.removeItem(config.tokenKey);
+      localStorage.removeItem(config.tokenKey!);
       Swal.fire({
         title: "ออกจากระบบ",
         text: "คุณได้ออกจากระบบแล้ว",
@@ -141,7 +141,7 @@ export default function HomePage() {
       }
 
       if (response.data.User.token && response.data.User.user.role) {
-        localStorage.setItem(config.tokenKey, response.data.User.token);
+        localStorage.setItem(config.tokenKey!, response.data.User.token);
         setToken(response.data.User.token);
 
         handleCloseModal();

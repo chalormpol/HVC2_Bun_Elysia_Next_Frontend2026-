@@ -35,7 +35,7 @@ export default function LoginPage() {
       }
 
       if (response.data.User.token && response.data.User.user.role) {
-        localStorage.setItem(config.tokenKey, response.data.User.token);
+        localStorage.setItem(config.tokenKey!, response.data.User.token);
         localStorage.setItem(
           "bun_service_id",
           response.data.User.user.id.toString()
