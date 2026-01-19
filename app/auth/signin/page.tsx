@@ -38,7 +38,7 @@ export default function LoginPage() {
         localStorage.setItem(config.tokenKey!, response.data.User.token);
         localStorage.setItem(
           "bun_service_id",
-          response.data.User.user.id.toString()
+          response.data.User.user.id.toString(),
         );
 
         const role = response.data.User.user.role;
@@ -51,8 +51,8 @@ export default function LoginPage() {
       const msg = axios.isAxiosError(error)
         ? error.response?.data?.message || error.message
         : error instanceof Error
-        ? error.message
-        : String(error);
+          ? error.message
+          : String(error);
 
       Swal.fire("Oops...", msg, "error");
     }
@@ -104,6 +104,11 @@ export default function LoginPage() {
           ไม่มีบัญชี?{" "}
           <Link href="/auth/signup" className="text-indigo-500">
             สมัครสมาชิก
+          </Link>
+        </p>
+        <p className="mt-4 text-center text-gray-400">
+          <Link href="/" className="text-white">
+            กลับหน้าแรก
           </Link>
         </p>
       </div>

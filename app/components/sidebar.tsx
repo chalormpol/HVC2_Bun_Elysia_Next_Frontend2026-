@@ -118,6 +118,11 @@ export default function Sidebar() {
         icon: "fa-solid fa-bed",
       },
       {
+        title: "จัดการจองห้องพัก",
+        href: "/backoffice/booking",
+        icon: "fa-solid fa-calendar",
+      },
+      {
         title: "คำขอผู้ใช้",
         href: "/backoffice/contact",
         icon: "fa-solid fa-envelope",

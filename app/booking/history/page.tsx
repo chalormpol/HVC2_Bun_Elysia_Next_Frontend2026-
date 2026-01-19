@@ -70,7 +70,7 @@ export default function BookingHistoryPage() {
             href="../"
             className="text-2xl font-bold text-gray-900 tracking-wide h1"
           >
-            LuxuryStay
+            CELESTIA GRANDE HOTEL
           </a>
           <nav className="flex items-center gap-6 text-gray-700 font-medium">
             <a href="../#rooms" className="hover:text-gray-900 transition">
@@ -139,16 +139,28 @@ export default function BookingHistoryPage() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 border-t">
         <div className="max-w-7xl mx-auto px-6 py-8 text-center">
-          <p>&copy; 2025 LuxuryStay. All rights reserved.</p>
+          <p>&copy; 2025 CELESTIA GRANDE HOTEL. All rights reserved.</p>
           <div className="flex justify-center gap-4 mt-2">
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://github.com/chalormpol"
+              target="_blank"
+              className="hover:text-white transition"
+            >
               FB
             </a>
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://github.com/chalormpol"
+              target="_blank"
+              className="hover:text-white transition"
+            >
               IG
             </a>
-            <a href="#" className="hover:text-white transition">
-              TW
+            <a
+              href="https://github.com/chalormpol"
+              target="_blank"
+              className="hover:text-white transition"
+            >
+              GH
             </a>
           </div>
         </div>
