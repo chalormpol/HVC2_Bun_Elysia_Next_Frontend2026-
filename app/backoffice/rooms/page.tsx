@@ -95,7 +95,7 @@ export default function Page() {
     try {
       const base64Image = img
         ? await fileToBase64(img)
-        : imgPreview ?? undefined;
+        : (imgPreview ?? undefined);
 
       const payload = {
         title,
@@ -118,7 +118,7 @@ export default function Page() {
       } else {
         const res = await axios.put(
           `${config.apiUrl}/api/rooms/update/${id}`,
-          payload
+          payload,
         );
 
         if (res.data) {
@@ -214,6 +214,111 @@ export default function Page() {
     }
   };
 
+  const handleAllow = async (id: string) => {
+    try {
+      const button = await config.confirmAllowDialog();
+
+      if (button.isConfirmed) {
+        await axios.put(`${config.apiUrl}/api/rooms/allow/${id}`);
+        Swal.fire({
+          title: "อนุญาตใช้งานสำเร็จ",
+          icon: "success",
+        });
+        fetchData();
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const msg =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          error.message;
+
+        Swal.fire({
+          icon: "error",
+          title: "มีข้อผิดพลาด",
+          text: msg,
+        });
+      } else {
+        const msg = error instanceof Error ? error.message : String(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Not an axios error: " + msg,
+        });
+      }
+    }
+  };
+
+  const handleBan = async (id: string) => {
+    try {
+      const button = await config.confirmBanDialog();
+
+      if (button.isConfirmed) {
+        await axios.put(`${config.apiUrl}/api/rooms/banned/${id}`);
+        Swal.fire({
+          title: "บังคับการใช้งานสำเร็จ",
+          icon: "success",
+        });
+        fetchData();
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const msg =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          error.message;
+
+        Swal.fire({
+          icon: "error",
+          title: "มีข้อผิดพลาด",
+          text: msg,
+        });
+      } else {
+        const msg = error instanceof Error ? error.message : String(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Not an axios error: " + msg,
+        });
+      }
+    }
+  };
+
+  const handleClean = async (id: string) => {
+    try {
+      const button = await config.confirmBanDialog();
+
+      if (button.isConfirmed) {
+        await axios.put(`${config.apiUrl}/api/rooms/cleaned/${id}`);
+        Swal.fire({
+          title: "ทำความสะอาดสำเร็จ",
+          icon: "success",
+        });
+        fetchData();
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const msg =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          error.message;
+
+        Swal.fire({
+          icon: "error",
+          title: "มีข้อผิดพลาด",
+          text: msg,
+        });
+      } else {
+        const msg = error instanceof Error ? error.message : String(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Not an axios error: " + msg,
+        });
+      }
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-8 sm:p-10 lg:p-12">
       {/* HEADER */}
@@ -273,15 +378,23 @@ export default function Page() {
                       room.status === "active"
                         ? "bg-green-100 text-green-700"
                         : room.status === "inactive"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
+                          ? "bg-red-100 text-red-700"
+                          : room.status === "cleaned"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : room.status === "banned"
+                              ? "bg-red-100 text-red-700"
+                              : "bg-red-100 text-red-700"
                     }`}
                   >
                     {room.status === "active"
                       ? "เปิดใช้งาน"
                       : room.status === "inactive"
-                      ? "ปิดใช้งาน"
-                      : "ถูกระงับ"}
+                        ? "ปิดใช้งาน"
+                        : room.status === "cleaned"
+                          ? "ทำความสะอาด"
+                          : room.status === "banned"
+                            ? "ถูกระงับ"
+                            : "ถูกระงับ"}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-center space-x-4">
@@ -290,6 +403,24 @@ export default function Page() {
                     className="text-blue-600 hover:text-blue-800 transition-colors cursor-pointer"
                   >
                     <i className="fa-solid fa-pen"></i>
+                  </button>
+                  <button
+                    onClick={() => handleClean(room.id)}
+                    className="text-yellow-600 hover:text-yellow-800 transition-colors cursor-pointer"
+                  >
+                    <i className="fa-solid fa-broom"></i>
+                  </button>
+                  <button
+                    onClick={() => handleAllow(room.id)}
+                    className="text-green-600 hover:text-green-800 transition-colors cursor-pointer"
+                  >
+                    <i className="fa-solid fa-check"></i>
+                  </button>
+                  <button
+                    onClick={() => handleBan(room.id)}
+                    className="text-red-600 hover:text-red-800 transition-colors cursor-pointer"
+                  >
+                    <i className="fa-solid fa-ban"></i>
                   </button>
                   <button
                     onClick={() => handleDelete(room.id)}

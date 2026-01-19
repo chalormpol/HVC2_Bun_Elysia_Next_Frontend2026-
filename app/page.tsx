@@ -20,6 +20,7 @@ type Room = {
   price: string;
   image: string;
   label?: string;
+  status?: string;
 };
 
 const roomTypes = [
@@ -164,8 +165,8 @@ export default function HomePage() {
       const msg = axios.isAxiosError(error)
         ? error.response?.data?.message || error.message
         : error instanceof Error
-        ? error.message
-        : String(error);
+          ? error.message
+          : String(error);
 
       Swal.fire("Oops...", msg, "error");
     }
@@ -206,7 +207,7 @@ export default function HomePage() {
 
       const response = await axios.post(
         `${config.apiUrl}/auth/signup`,
-        payload
+        payload,
       );
 
       if (response.data.User.user) {
@@ -225,8 +226,8 @@ export default function HomePage() {
       const msg = axios.isAxiosError(error)
         ? error.response?.data?.message || error.message
         : error instanceof Error
-        ? error.message
-        : String(error);
+          ? error.message
+          : String(error);
 
       Swal.fire("Oops...มี Email นี้อยู่แล้ว", msg, "error");
     }
@@ -337,8 +338,8 @@ export default function HomePage() {
       const msg = axios.isAxiosError(error)
         ? error.response?.data?.message || error.message
         : error instanceof Error
-        ? error.message
-        : String(error);
+          ? error.message
+          : String(error);
 
       Swal.fire("Oops...", msg, "error");
     } finally {
@@ -360,7 +361,7 @@ export default function HomePage() {
             href="#"
             className="text-2xl font-bold text-gray-900 tracking-wide h1"
           >
-            LuxuryStay
+            CELESTIA GRANDE HOTEL
           </a>
           <nav className="flex items-center gap-6 text-gray-700 font-medium">
             <a href="#rooms" className="hover:text-gray-900 transition">
@@ -371,6 +372,12 @@ export default function HomePage() {
             </a>
             <a href="#contact" className="hover:text-gray-900 transition">
               Contact
+            </a>
+            <a
+              href="/booking/history"
+              className="hover:text-gray-900 transition"
+            >
+              Booking
             </a>
 
             {/* ปุ่ม Login / Logout */}
@@ -404,7 +411,7 @@ export default function HomePage() {
           loop
           className="h-full"
         >
-          {["/images/room1.jpg", "/images/room2.jpg", "/images/room3.jpg"].map(
+          {["/hotel/hotel2.jpg", "/hotel/hotel3.jpg", "/hotel/hotel4.jpg"].map(
             (img, idx) => (
               <SwiperSlide key={idx}>
                 <div className="relative h-screen w-full">
@@ -419,7 +426,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
                 </div>
               </SwiperSlide>
-            )
+            ),
           )}
         </Swiper>
 
@@ -710,16 +717,28 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 border-t mt-20">
         <div className="max-w-7xl mx-auto px-6 py-8 text-center">
-          <p>&copy; 2025 LuxuryStay. All rights reserved.</p>
+          <p>&copy; 2025 CELESTIA GRANDE HOTEL. All rights reserved.</p>
           <div className="flex justify-center gap-4 mt-2">
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://github.com/chalormpol"
+              target="_blank"
+              className="hover:text-white transition"
+            >
               FB
             </a>
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://github.com/chalormpol"
+              target="_blank"
+              className="hover:text-white transition"
+            >
               IG
             </a>
-            <a href="#" className="hover:text-white transition">
-              TW
+            <a
+              href="https://github.com/chalormpol"
+              target="_blank"
+              className="hover:text-white transition"
+            >
+              GH
             </a>
           </div>
         </div>
@@ -753,7 +772,7 @@ type RoomCardProps = {
 
 // ------------------ Room Card ------------------
 function RoomCard({ room, onBook }: RoomCardProps) {
-  const { title, price, image, label } = room;
+  const { title, price, image, label, status } = room;
   return (
     <motion.div
       whileHover={{
@@ -774,12 +793,28 @@ function RoomCard({ room, onBook }: RoomCardProps) {
       <div className="p-6">
         <h4 className="text-xl font-semibold text-gray-800">{title}</h4>
         <p className="text-gray-600 mt-2">${price} / night</p>
-        <button
-          onClick={() => onBook(room)}
-          className="mt-4 w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 rounded-lg hover:from-indigo-600 hover:to-blue-500 transition"
-        >
-          Book Now
-        </button>
+        {status === "active" ? (
+          <button
+            onClick={() => onBook(room)}
+            className="mt-4 w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 rounded-lg hover:from-indigo-600 hover:to-blue-500 transition"
+          >
+            Book Now
+          </button>
+        ) : status === "cleaned" ? (
+          <button
+            disabled
+            className="mt-4 w-full bg-gray-300 text-gray-500 py-2 rounded-lg cursor-not-allowed"
+          >
+            กำลังทำความสะอาด
+          </button>
+        ) : status === "banned" ? (
+          <button
+            disabled
+            className="mt-4 w-full bg-gray-300 text-gray-500 py-2 rounded-lg cursor-not-allowed"
+          >
+            ห้องถูกระงับ
+          </button>
+        ) : null}
       </div>
     </motion.div>
   );

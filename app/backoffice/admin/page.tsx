@@ -186,7 +186,7 @@ export default function Page() {
       } else {
         const res = await axios.put(
           `${config.apiUrl}/api/admins/updateAdmin/${id}`,
-          payload
+          payload,
         );
 
         if (res.data.error === "ไม่พบผู้ใช้งาน") {
@@ -430,15 +430,15 @@ export default function Page() {
                       employee.status === "active"
                         ? "bg-green-100 text-green-700"
                         : employee.status === "inactive"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
                     }`}
                   >
                     {employee.status === "active"
                       ? "เปิดใช้งาน"
                       : employee.status === "inactive"
-                      ? "ปิดใช้งาน"
-                      : "ถูกระงับ"}
+                        ? "ปิดใช้งาน"
+                        : "ถูกระงับ"}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-center space-x-4">

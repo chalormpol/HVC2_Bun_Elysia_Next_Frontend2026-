@@ -93,7 +93,7 @@ export default function BookingDetailPage() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (res.data.error === "Room is already booked for selected dates") {
@@ -102,7 +102,7 @@ export default function BookingDetailPage() {
         const conflictText = conflicts
           .map(
             (c: { check_in: string; check_out: string }) =>
-              `• ${formatDate(c.check_in)} ถึง ${formatDate(c.check_out)}`
+              `• ${formatDate(c.check_in)} ถึง ${formatDate(c.check_out)}`,
           )
           .join("<br/>");
 
@@ -138,8 +138,8 @@ export default function BookingDetailPage() {
       const msg = axios.isAxiosError(error)
         ? error.response?.data?.message || error.message
         : error instanceof Error
-        ? error.message
-        : String(error);
+          ? error.message
+          : String(error);
       Swal.fire({
         icon: "error",
         title: "เกิดข้อผิดพลาดไม่สามารถจองได้",
@@ -377,15 +377,27 @@ export default function BookingDetailPage() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 border-t">
         <div className="max-w-7xl mx-auto px-6 py-8 text-center">
-          <p>&copy; 2025 LuxuryStay. All rights reserved.</p>
+          <p>&copy; 2025 CELESTIA GRANDE HOTEL. All rights reserved.</p>
           <div className="flex justify-center gap-4 mt-2">
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://github.com/chalormpol"
+              className="hover:text-white transition"
+              target="_blank"
+            >
               FB
             </a>
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://github.com/chalormpol"
+              className="hover:text-white transition"
+              target="_blank"
+            >
               IG
             </a>
-            <a href="#" className="hover:text-white transition">
+            <a
+              href="https://github.com/chalormpol"
+              className="hover:text-white transition"
+              target="_blank"
+            >
               TW
             </a>
           </div>
